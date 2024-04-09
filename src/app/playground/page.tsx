@@ -40,7 +40,7 @@ import { useTheme } from "next-themes";
 
 
 
-export default function playground() {
+export default function Playground() {
   const { theme } = useTheme();
 
   const [localStorageData, setLocalStorageData] = useState<any>(
