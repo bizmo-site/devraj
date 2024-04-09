@@ -1,28 +1,6 @@
 "use client";
-import {
-  Bird,
-  Book,
-  Bot,
-  Circle,
-  Code2,
-  CornerDownLeft,
-  File,
-  Folder,
-  FolderArchive,
-  LifeBuoy,
-  Mic,
-  Paperclip,
-  Rabbit,
-  Settings,
-  Settings2,
-  Share,
-  SquareTerminal,
-  SquareUser,
-  Triangle,
-  Turtle,
-} from "lucide-react";
+import { Code2, Folder, SquareTerminal } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSandpack } from "@codesandbox/sandpack-react";
 import {
   SandpackProvider,
   SandpackConsole,
@@ -30,12 +8,11 @@ import {
   SandpackLayout,
   SandpackPreview,
   SandpackStack,
-  SandpackCodeEditor,
-  SandpackFiles
+  SandpackCodeEditor
 } from "@codesandbox/sandpack-react";
 import Navigation from "../components/Navigation";
 import Gemini from "../components/Gemini";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 
@@ -47,7 +24,7 @@ export default function Playground() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("file");
-      setLocalStorageData(storedData ? JSON.parse(storedData) : {});
+      setLocalStorageData(storedData ? storedData : {});
     }
   }, []);
 
@@ -67,21 +44,17 @@ export default function Playground() {
   // Rest of your component code...
   console.log("local", localStorageData);
 
-  const generatedFiles = Object.fromEntries(
-    Object.entries(localStorageData).map(([fileName,  code ]) => [fileName, code as string]) // Force code as string
-  );
-
+  const sandpacktheme = theme === "light" ? "light" : "dark";
 
   return (
     <div className="grid h-screen w-full pl-[56px]">
       <Navigation />
-
       <div className="flex flex-col">
         <SandpackProvider
           options={{ recompileMode: "immediate" }}
-          theme={'auto'}
+          theme={sandpacktheme}
           template="vite-react"
-          files={generatedFiles}
+          files={{}}
         >
           <SandpackStack>
             <SandpackLayout
@@ -112,8 +85,7 @@ export default function Playground() {
                         showOpenNewtab={true}
                         showOpenInCodeSandbox={false}
                         showRestartButton={true}
-                        showRefreshButton={true}
-                      />
+                        showRefreshButton={true} />
                     </fieldset>
                   </div>
                 </div>
@@ -136,14 +108,16 @@ export default function Playground() {
                       </TabsList>
                       <TabsContent className="w-full" value="editor">
                         <SandpackCodeEditor
-                          style={{ height: "80vh" }}
+                          style={{
+                            height: "80vh",
+                            background: theme === "light" ? "white" : "black",
+                          }}
                           showRunButton={true}
                           showTabs={true}
                           showLineNumbers={false}
                           showInlineErrors={true}
                           wrapContent
-                          closableTabs
-                        />
+                          closableTabs />
                       </TabsContent>
                       <TabsContent value="file-tree">
                         <SandpackFileExplorer style={{ height: "80vh" }} />
@@ -158,10 +132,7 @@ export default function Playground() {
             </SandpackLayout>
           </SandpackStack>
         </SandpackProvider>
-      </div>
+      </div>s
     </div>
   );
 }
-
-
-
