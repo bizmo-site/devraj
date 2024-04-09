@@ -39,32 +39,32 @@ import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
 
-
 export default function Playground() {
   const { theme } = useTheme();
 
-  const [localStorageData, setLocalStorageData] = useState<any>(
-    localStorage.getItem("file") ?? "{}"
-  );
-  const [sandpackTheme, setSandpackTheme] = useState<"light" | "dark">("light");
+  const [localStorageData, setLocalStorageData] = useState<any>({});
 
   useEffect(() => {
-    setSandpackTheme(theme === "light" ? "light" : "dark");
-  }, [theme]);
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("file");
+      setLocalStorageData(storedData ? JSON.parse(storedData) : {});
+    }
+  }, []);
 
-  
   useEffect(() => {
     const interval = setInterval(() => {
-      const generatedFiles = localStorage.getItem("files");
-      if (generatedFiles !== localStorageData) {
-        setLocalStorageData(generatedFiles ?? "{}");
+      if (typeof window !== "undefined") {
+        const generatedFiles = localStorage.getItem("files");
+        if (generatedFiles !== localStorageData) {
+          setLocalStorageData(generatedFiles ? JSON.parse(generatedFiles) : {});
+        }
       }
-      console.log("gen", generatedFiles);
     }, 5000);
 
     return () => clearInterval(interval);
   }, [localStorageData]);
 
+  // Rest of your component code...
   console.log("local", localStorageData);
 
   const generatedFiles = Object.fromEntries(
@@ -79,7 +79,7 @@ export default function Playground() {
       <div className="flex flex-col">
         <SandpackProvider
           options={{ recompileMode: "immediate" }}
-          theme={sandpackTheme}
+          theme={'auto'}
           template="vite-react"
           files={generatedFiles}
         >
