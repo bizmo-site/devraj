@@ -8,8 +8,8 @@ import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
-  Content,
 } from "@google/generative-ai";
+import dynamic from "next/dynamic";
 
 const genAI = new GoogleGenerativeAI("AIzaSyCJqVGgs4zIozXC7O7xSeglvUKuWGdbShc");
 const MODEL_NAME = "gemini-1.0-pro";
@@ -149,4 +149,8 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat;
+
+
+
+
+export default dynamic (() => Promise.resolve(Chat), {ssr: false})

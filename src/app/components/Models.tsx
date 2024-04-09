@@ -16,9 +16,7 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip";
   import { Bot } from "lucide-react";
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-
+  
 export function Models() {
   return (
     <Dialog>

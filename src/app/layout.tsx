@@ -19,17 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TooltipProvider>
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-      <body className={inter.className}>{children}</body>
-      </ThemeProvider>
-      
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <body className={inter.className}>{children}</body>
+        </ThemeProvider>
       </TooltipProvider>
-   
     </html>
   );
 }
