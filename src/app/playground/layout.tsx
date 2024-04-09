@@ -6,8 +6,10 @@ export default function Layout({ children } : {children: React.ReactNode}) {
     <>
 
 
-
+<SandpackProvider>
 <main>{children}</main>
+</SandpackProvider>
+
     
 
 
