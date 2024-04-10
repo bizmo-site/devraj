@@ -1,15 +1,13 @@
+'use client'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "./providers/ThemeProvider";
+import { ThemeProvider  } from "next-themes"
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Devraj",
-  description: "",
-};
+
 
 export default function RootLayout({
   children,
@@ -22,8 +20,6 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
         >
           <body className={inter.className}>{children}</body>
         </ThemeProvider>
