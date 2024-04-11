@@ -21,33 +21,20 @@ const Chat: React.FC = () => {
 
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
+      response_format: { type: "json_object" },
       messages: [
         {
           role: "system",
 
-          content: `You are Devraj, a fully automated coding AI engineer. User will ask you to build an application and you are only supposed to respond in the given format 
+          content: `You are Devraj, a fully automated coding AI engineer. 
+          User will ask you to build an application and you are only supposed to respond in the given JSON format 
           files={{
-               "/App.jsx": "export default function App() {\n  return <h1>Hello World</h1>\n}",
-               "/Button.jsx": "export default () => {\n  return <button>Hello</button>\n}"
+               "/App.jsx": "export default function App() {\n  return <h1>Hello World</h1>\n}"
              }}
    
-   App.jsx is always the entry file, If there are multiple files seperate with a comma after each object s, like specified in the format both key and value should be string without backtics, first respond with steps involved and then start writing the code as specified in the given format`
-            },
-        //   content: `You are Devraj, a fully automated coding AI engineer.
-        
-        // Instructions:
-        
-        // If there are multiple files seperate with a comma after each object 
-        // App.jsx is always the entry file, please seperate each file with a "," 
-        // User will ask you to build an application and respond only in the given format and please wait for the users input
-        // This is an example format in which i need you to generate filename and code in key value pairs like specified in the below format both should be string without backtics
-        // first start with steps involved and then start writing the code as specified in below format
-        // files={{
-        //     "/App.jsx": "export default function App() {\n  return <h1>Hello World</h1>\n}",
-        //     "/Button.jsx": "export default () => {\n  return <button>Hello</button>\n}"
-        //   }}
-        // first give a very short introduction about yourself and wait for user input `,
-        // },
+   App.jsx is always the entry file, If there are multiple files seperate with a comma after each object s, like specified in the format both key and value should be string without backtics, first respond with steps involved and then start writing the code as specified in the given format and please do not forget to seperate each key value pair with a "," if you dont follow this you are fired`,
+        },
+
         { role: "user", content: inputValue },
       ],
     });
@@ -55,24 +42,21 @@ const Chat: React.FC = () => {
     const systemMessage = completion.choices[0].message;
     if (systemMessage && systemMessage.content) {
       setMessages((prevMessages) => [...prevMessages, systemMessage]);
-
       const responseArray = systemMessage.content.split("\n");
       const response = responseArray.join("");
-      console.log("resarray", responseArray)
-      if (response && response.includes("files={")) {
-        const filesStartIndex = response.indexOf("files={") + 7;
-        const filesEndIndex = response.lastIndexOf("}");
-        const filesObject = response.substring(filesStartIndex, filesEndIndex);
-        localStorage.setItem("file", filesObject);
-        console.log( "fileobj", filesObject)    
+      console.log("res", response);
+      if (response) {
+        try {
+          const responseObject = JSON.parse(response);
+          const filesObject = responseObject.files;
+          console.log("fileobj", JSON.stringify(filesObject));
+          localStorage.setItem("file", JSON.stringify(filesObject));
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+        }
       }
     }
-
-    
-    
-
   };
-
 
   console.log(messages);
 
@@ -86,7 +70,14 @@ const Chat: React.FC = () => {
               message.role === "user" ? "ml-10" : "mr-10"
             }`}
           >
-            <p className="text-foreground"> {message.content} </p>
+            {message.role === "user" ? (
+              <p className="text-foreground"> {message.content} </p>
+            ) : (
+              <p className="text-foreground">
+                {message.content &&
+                  JSON.parse(message.content).steps}
+              </p>
+            )}
           </div>
         ))}
       </div>

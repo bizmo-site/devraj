@@ -48,8 +48,7 @@ export default function Playground() {
 
   console.log("local", localStorageData);
 
-  const genfiles = JSON.stringify(localStorageData)
-  console.log(genfiles)
+
 
   const sandpacktheme = theme === "light" ? "light" : "dark";
 
