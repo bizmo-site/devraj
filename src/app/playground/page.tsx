@@ -38,6 +38,7 @@ export default function Playground() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("file");
+      console.log("stored", storedData)
       setLocalStorageData(storedData ? JSON.parse(storedData) : {});
     }
   }, []);
