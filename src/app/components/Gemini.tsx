@@ -61,16 +61,15 @@ const Chat: React.FC = () => {
         If there are multiple files seperate with a comma after each object 
         App.jsx is always the entry file
         User will ask you to build an application and respond only in the given format and please wait for the users input
-        This is an example format in which i need you to generate code
-        
-        files={{
-            "/App.jsx": \`export default function App() {
-          return <h1>Hello World</h1>
-        }\`,
-            "/Button.jsx":  \`export default () => {
-          return <button>Hello</button>
-        }\`
-        }}
+        This is an example format in which i need you to generate filename and code in key value pairs like specified in the below format both should be string without backtics
+        files={
+          {
+            "/App.jsx": "export default function App() {\n  return <h1>Hello World</h1>\n}",
+            "/Button.jsx": "export default () => {\n  return <button>Hello</button>\n}"
+          }
+
+        }
+  
 
         first give a very short introduction about yourself and wait for user input `;
 
@@ -102,11 +101,9 @@ const Chat: React.FC = () => {
       const filesObject = response
         .text()
         .substring(filesStartIndex, filesEndIndex);
-     
-        localStorage.setItem("file", filesObject);
-     
+
+      localStorage.setItem("file", filesObject);
     }
-    
   };
 
   const parseHTML = (htmlString: string) => {
@@ -126,9 +123,7 @@ const Chat: React.FC = () => {
             }`}
           >
             <p>
-              {message.role === "model"
-                ? parseHTML(message.content)
-                : message.content}
+              {message.content ? parseHTML(message.content) : message.content}
             </p>
           </div>
         ))}
@@ -149,8 +144,4 @@ const Chat: React.FC = () => {
   );
 };
 
-
-
-
-
-export default dynamic (() => Promise.resolve(Chat), {ssr: false})
+export default dynamic(() => Promise.resolve(Chat), { ssr: false });

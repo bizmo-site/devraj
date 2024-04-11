@@ -10,19 +10,23 @@ import {
   SandpackPreview,
   SandpackStack,
   SandpackCodeEditor,
+  SandpackFiles,
 } from "@codesandbox/sandpack-react";
 import Navigation from "../components/Navigation";
 import Gemini from "../components/Gemini";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import LoadingScreen from "../components/LoadingScreen";
+import { useSandpack } from "@codesandbox/sandpack-react";
+import Chat from "../components/ChatGPT";
+
 
 
 
 export default function Playground() {
   const { theme } = useTheme();
   const [showLoading, setShowLoading] = useState(true);
-  const [localStorageData, setLocalStorageData] = useState<any>({});
+  const [localStorageData, setLocalStorageData] = useState<SandpackFiles>({});
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,25 +38,15 @@ export default function Playground() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("file");
-      setLocalStorageData(storedData ? storedData : {});
+      setLocalStorageData(storedData ? JSON.parse(storedData) : {});
     }
   }, []);
+  
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (typeof window !== "undefined") {
-        const generatedFiles = localStorage.getItem("files");
-        if (generatedFiles !== localStorageData) {
-          setLocalStorageData(generatedFiles ? JSON.parse(generatedFiles) : {});
-        }
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [localStorageData]);
-
-  // Rest of your component code...
   console.log("local", localStorageData);
+
+  const genfiles = JSON.stringify(localStorageData)
+  console.log(genfiles)
 
   const sandpacktheme = theme === "light" ? "light" : "dark";
 
@@ -63,11 +57,12 @@ export default function Playground() {
     <div className="grid h-screen w-full pl-[56px]">
       <Navigation />
       <div className="flex flex-col">
+  
         <SandpackProvider
           options={{ recompileMode: "immediate" }}
           theme={sandpacktheme}
           template="vite-react"
-          files={{}}
+          files={localStorageData}
         >
           <SandpackStack>
             <SandpackLayout
@@ -85,7 +80,7 @@ export default function Playground() {
                       </legend>
 
                       <div className="grid gap-3">
-                        <Gemini />
+                        <Chat />
                       </div>
                     </fieldset>
                     <fieldset className="grid gap-6 rounded-lg border p-4">
@@ -147,6 +142,7 @@ export default function Playground() {
             </SandpackLayout>
           </SandpackStack>
         </SandpackProvider>
+
       </div>
     </div>
 
