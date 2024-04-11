@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 import OpenAI from "openai";
+import Refresh from "./Refresh";
 
 const openai = new OpenAI({
   apiKey: "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",
@@ -93,6 +94,7 @@ const Chat: React.FC = () => {
         <Button type="submit" size="icon">
           <SendHorizonal className="h-4 w-4" />
         </Button>
+        <Refresh/>
       </form>
     </div>
   );

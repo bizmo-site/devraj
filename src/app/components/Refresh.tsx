@@ -1,36 +1,22 @@
 'use client'
-import { Button } from "@/components/ui/button";
-import { useSandpack } from "@codesandbox/sandpack-react";
-import { RefreshCw } from "lucide-react";
-import { useEffect } from "react";
- 
-import React from 'react'
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { RunIcon } from '@codesandbox/sandpack-react';
+import { PlayIcon } from 'lucide-react';
 
-export default function Refresh() {
-    const { dispatch, listen } = useSandpack();
- 
-    const handleRefresh = () => {
-      // sends the refresh message to the bundler, should be logged by the listener
-      dispatch({ type: "refresh" });
-    };
-   
-    useEffect(() => {
-      // listens for any message dispatched between sandpack and the bundler
-      const stopListening = listen((msg) => console.log(msg));
-   
-      return () => {
-        // unsubscribe
-        stopListening();
-      };
-    }, [listen]);
-   
+class Refresh extends React.Component {
+  reloadPage = () => {
+    window.location.reload();
+  };
+
+  render() {
     return (
-     <Button variant={"default"} type="button" onClick={handleRefresh}>
-        <RefreshCw/>
+      <Button onClick={this.reloadPage}>
+        <PlayIcon className='h-4 w-4 text-background mr-2'></PlayIcon>
+         <p>Run Code</p>
       </Button>
     );
-  };
-  
+  }
+}
 
-
- 
+export default Refresh;

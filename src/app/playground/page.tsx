@@ -17,8 +17,8 @@ import Gemini from "../components/Gemini";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import LoadingScreen from "../components/LoadingScreen";
-import { useSandpack } from "@codesandbox/sandpack-react";
 import Chat from "../components/ChatGPT";
+import Refresh from "../components/Refresh";
 
 
 
@@ -59,6 +59,7 @@ export default function Playground() {
     <div className="grid h-screen w-full pl-[56px]">
       <Navigation />
       <div className="flex flex-col">
+        
   
         <SandpackProvider
           options={{ recompileMode: "immediate" }}
@@ -83,6 +84,7 @@ export default function Playground() {
 
                       <div className="grid gap-3">
                         <Chat />
+                     
                       </div>
                     </fieldset>
                     <fieldset className="grid gap-6 rounded-lg border p-4">
