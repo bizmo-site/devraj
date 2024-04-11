@@ -28,6 +28,8 @@ export default function Playground() {
   const [showLoading, setShowLoading] = useState(true);
   const [localStorageData, setLocalStorageData] = useState<SandpackFiles>({});
 
+  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
