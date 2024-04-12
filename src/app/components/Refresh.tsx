@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { RunIcon } from '@codesandbox/sandpack-react';
 import { PlayIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 class Refresh extends React.Component {
   reloadPage = () => {
@@ -19,4 +20,5 @@ class Refresh extends React.Component {
   }
 }
 
-export default Refresh;
+
+export default dynamic (()=> Promise.resolve(Refresh), {ssr: false})

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import {
     Tooltip,
@@ -11,11 +12,11 @@ import {
   import { Bot } from 'lucide-react';
   import { LifeBuoy } from 'lucide-react';
   import { Book } from 'lucide-react';
-import { Models } from './Models';
-import { ThemeToggle } from './ThemeToggle';
+import Models  from './Models';
+import ThemeToggle  from './ThemeToggle';
+import dynamic from 'next/dynamic';
   
-
-export default function Navigation() {
+ function Navigation() {
   return (
  <>
     <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
@@ -86,3 +87,6 @@ export default function Navigation() {
   </>
   )
 }
+
+
+export default dynamic (()=> Promise.resolve(Navigation), {ssr: false})

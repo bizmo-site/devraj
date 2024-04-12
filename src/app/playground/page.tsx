@@ -13,17 +13,17 @@ import {
   SandpackFiles,
 } from "@codesandbox/sandpack-react";
 import Navigation from "../components/Navigation";
-import Gemini from "../components/Gemini";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import LoadingScreen from "../components/LoadingScreen";
 import Chat from "../components/ChatGPT";
-import Refresh from "../components/Refresh";
+import dynamic from "next/dynamic";
 
 
 
 
-export default function Playground() {
+
+function Playground() {
   const { theme } = useTheme();
   const [showLoading, setShowLoading] = useState(true);
   const [localStorageData, setLocalStorageData] = useState<SandpackFiles>({});
@@ -38,12 +38,18 @@ export default function Playground() {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("file");
-      console.log("stored", storedData)
-      setLocalStorageData(storedData ? JSON.parse(storedData) : {});
+    try {
+      if (typeof window !== "undefined") {
+        const storedData = localStorage.getItem("file");
+        console.log("stored", storedData)
+        setLocalStorageData(storedData ? JSON.parse(storedData) : {});
+      }
+    } catch (error) {
+      console.error("Error occurred while accessing local storage:", error);
+      setLocalStorageData({})
     }
   }, []);
+  
   
 
   console.log("local", localStorageData);
@@ -154,3 +160,6 @@ export default function Playground() {
     </div>
   );
 }
+
+
+export default dynamic (()=> Promise.resolve(Playground), {ssr: false})

@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
+import dynamic from "next/dynamic"
 
 import { Progress } from "@/components/ui/progress"
 
-export default function LoadingScreen() {
+function LoadingScreen() {
   const [progress, setProgress] = React.useState(13)
 
   React.useEffect(() => {
@@ -16,3 +17,5 @@ export default function LoadingScreen() {
     <Progress value={progress} className="max-w-md " />
   </div>
 }
+
+export default dynamic (()=> Promise.resolve(LoadingScreen), {ssr: false})

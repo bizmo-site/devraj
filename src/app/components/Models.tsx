@@ -1,4 +1,5 @@
 
+'use client'
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -16,8 +17,9 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip";
   import { Bot } from "lucide-react";
+  import dynamic from "next/dynamic";
   
-export function Models() {
+ function Models() {
   return (
     <Dialog>
       
@@ -56,3 +58,5 @@ export function Models() {
     </Dialog>
   )
 }
+
+export default dynamic (()=> Promise.resolve(Models), {ssr: false})

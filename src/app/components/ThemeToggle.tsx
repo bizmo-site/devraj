@@ -4,6 +4,7 @@ import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import dynamic from "next/dynamic"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function ThemeToggle() {
+ function ThemeToggle() {
   const { setTheme } = useTheme()
 
   return (
@@ -34,3 +35,5 @@ export function ThemeToggle() {
     </DropdownMenu>
   )
 }
+
+export default dynamic (()=> Promise.resolve(ThemeToggle), {ssr: false})
