@@ -4,15 +4,40 @@ import { Button } from "@/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 import OpenAI from "openai";
 import Refresh from "./Refresh";
+import { useEffect } from "react";
+import db, { APIKey } from "../db/db";
 
-const openai = new OpenAI({
-  apiKey: "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",
-  dangerouslyAllowBrowser: true,
-});
+
+
+
 
 const Chat: React.FC = () => {
+
+
+
+  useEffect(() => {
+    db.keys
+      .get("chatgpt")
+      .then((result: APIKey | undefined) => {
+        if (result) {
+          setApiKey(result.apiKey);
+        } else {
+          setApiKey(""); // Clear the apiKey if no key is found
+        }
+      })
+      .catch((error) => {
+        console.error("Error retrieving API key:", error);
+      });
+  }, []);
+
+  const [apiKey, setApiKey] = useState("")
   const [messages, setMessages] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState("");
+
+  const openai = new OpenAI({
+    apiKey: apiKey, 
+    dangerouslyAllowBrowser: true,
+  });
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
