@@ -9,7 +9,7 @@
     - Use the `git clone` command followed by the URL of your forked repository to clone it to your local machine.
 
     ```sh
-    git clone https://github.com/your-username/devraj.git
+    git clone https://github.com/bizmo-site/devraj.git
     ```
 
 3. **Install dependencies**: 
