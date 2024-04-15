@@ -1,5 +1,7 @@
 ### Getting Started with Devraj
 
+![image](https://github.com/bizmo-site/devraj/assets/132246968/c0f848be-466b-4f98-9635-a54256c7c81c)
+
 1. **Fork the Devraj repository**: 
     - Navigate to the [Devraj repository](https://github.com/bizmo-site/devraj) on GitHub.
     - Click on the "Fork" button in the upper-right corner to create a copy of the repository under your own GitHub account.
