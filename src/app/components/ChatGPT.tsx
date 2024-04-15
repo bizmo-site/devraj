@@ -84,7 +84,7 @@ const Chat: React.FC = () => {
     }
   };
 
-  console.log(messages);
+  console.log("messages" , messages);
 
   return (
     <div>
