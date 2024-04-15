@@ -1,13 +1,11 @@
-'use client'
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider  } from "next-themes"
+'use client';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ThemeProvider } from 'next-themes';
 
-const inter = Inter({ subsets: ["latin"] });
-
-
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -15,15 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <TooltipProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-        >
-          <body className={inter.className}>{children}</body>
-        </ThemeProvider>
-      </TooltipProvider>
+    <html lang='en'>
+      <body className={inter.className}>
+        <TooltipProvider>
+          <ThemeProvider attribute='class' defaultTheme='dark'>
+            {children}
+          </ThemeProvider>
+        </TooltipProvider>
+      </body>
     </html>
   );
 }
