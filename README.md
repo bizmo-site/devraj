@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Getting Started with Devraj
 
-## Getting Started
+1. **Fork the Devraj repository**: 
+    - Navigate to the [Devraj repository](https://github.com/bizmo-site/devraj) on GitHub.
+    - Click on the "Fork" button in the upper-right corner to create a copy of the repository under your own GitHub account.
 
-First, run the development server:
+2. **Clone the forked repository**: 
+    - Open your terminal or command prompt.
+    - Use the `git clone` command followed by the URL of your forked repository to clone it to your local machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```sh
+    git clone https://github.com/your-username/devraj.git
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Install dependencies**: 
+    - Navigate into the cloned `devraj` directory.
+    - Run `npm install` to install all project dependencies listed in the `package.json` file.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```sh
+    cd devraj
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. **Run the development server**: 
+    - After the installation is complete, start the development server using the `npm run dev` command.
 
-## Learn More
+    ```sh
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+    This will launch the Next.js application locally, typically on `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Access the playground**: 
+    - Open your web browser and navigate to `http://localhost:3000/playground`.
+    - You should now see the Devraj playground page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+6. **Set up API key**: 
+    - On the playground page, locate the option to set up an API key in the left sidebar.
+    - This key grants access to AI services that Devraj utilizes. (Right Now only supports GPT-3.5 Turbo)
 
-## Deploy on Vercel
+7. **Build something**: 
+    - Now that you're set up, start building using Devraj .
+    - Devraj Writes your React code.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+8. **Wait for the response**: 
+    - Once you've set a prompt functionality, wait for the response from Devraj.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+9. **Run the code**: 
+    - After receiving a response, click on the "run code" button to execute your code within the Devraj environment.
+    
+
+
